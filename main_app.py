@@ -27,15 +27,17 @@ airport_cities = load_file('data/airport_cities.csv')
 airport_list = airport_cities[["AIRPORT"]].sort_values("AIRPORT")
 airlines = load_file('data/airline_list.csv')
 airline_list = airlines[['Description']].sort_values("Description")
-
+today = datetime.datetime.now()
+now = datetime.datetime.now()
 ############################################
 st.write("Enter Flight Information")
-d = st.date_input("When is your flight", value = None)
-t = st.time_input("What time is your flight", value = None)
+d = st.date_input("When is your flight", value = now)
+t = st.time_input("What time is your flight", value = today)
 origin = st.selectbox("Origin Airport", airport_list, index = None, placeholder = "Select Origin airport")
 destination = st.selectbox("Destination Airport", airport_list, index = None, placeholder= "Select Destination Airport")
-airline = st.selectbox("Airline", airline_list, index = None, placeholder= "Select Airline")
-
+airline = st.selectbox("Airline", airline_list,index = 0, placeholder= "Select Airline")
+day_of_week = d.strftime('%A')
+airline_id = airlines[airlines['Description'] == airline]['OP_CARRIER_AIRLINE_ID'].item()
 #############################
 
 ## All the Logic and stuff
