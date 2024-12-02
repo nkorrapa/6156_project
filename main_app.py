@@ -16,6 +16,8 @@ def load_file(file):
     else:
         df = pd.read_csv(file)
     return(df)
+def add_colon (string):
+  return string [:-2] + ":" + string[-2:]
 #######################################
 # load flight schedule
 # load model
@@ -49,9 +51,21 @@ city_origin = airport_cities.loc[airport_cities['AIRPORT'] == origin, 'CITY_MARK
 city_dest = airport_cities.loc[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
 
 ## get similar flights
-similar_flights = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN_CITY_MARKET_ID'] == city_origin) & (flight_schedule['DEST_CITY_MARKET_ID'] == city_dest)][["OP_CARRIER_AIRLINE_ID","ORIGIN","DEST","CRS_DEP_TIME","CRS_ARR_TIME"]]
+flight_schedule = flight_schedule.merge(airlines, on = "OP_CARRIER_AIRLINE_ID", how = 'left')
+flight_schedule['CRS_ARR_TIME']= flight_schedule['CRS_ARR_TIME'].astype(str)
+flight_schedule['CRS_ARR_TIME'] = flight_schedule['CRS_ARR_TIME'].apply(add_colon)
+flight_schedule['CRS_DEP_TIME']= flight_schedule['CRS_DEP_TIME'].astype(str)
+flight_schedule['CRS_DEP_TIME'] = flight_schedule['CRS_DEP_TIME'].apply(add_colon)
+
+similar_flights = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN_CITY_MARKET_ID'] == city_origin) & (flight_schedule['DEST_CITY_MARKET_ID'] == city_dest)][["Description","ORIGIN","DEST","CRS_DEP_TIME","CRS_ARR_TIME"]]
+
+
 if similar_flights.empty:
     similar_flights = "No other flight options"
+else:
+    similar_flights.reset_index(drop = True, inplace=True)
+    similar_flights.rename(columns = { "Description" : "Airline", "ORIGIN" : "Origin", "DEST" : "Destination", "CRS_DEP_TIME": "Departure Time", "CRS_ARR_TIME": "Arrival Time"}, inplace = True)
+
 ###########################
 st.write("Your flight is usually delayed by " + delay_reason + ".")
 st.write("Your flight is delayed " + delay + " minutes on average.")
