@@ -40,23 +40,22 @@ airline = st.selectbox("Airline", airline_list,index = 0, placeholder= "Select A
 
 day_of_week = d.strftime('%A')
 airline_id = airlines[airlines['Description'] == airline]['OP_CARRIER_AIRLINE_ID'].item()
-
+time = t.strftime('%H%M')
 input_array = np.array([day_of_week, t, origin, destination, airline_id]) # model input
 
 #############################
 #city_origin = airport_cities[airport_cities['AIRPORT'] == origin]['CITY_MARKET'].item()
-#city_dest = airport_cities[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
+city_origin = airport_cities.loc[airport_cities['AIRPORT'] == origin, 'CITY_MARKET'].item()
+city_dest = airport_cities.loc[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
 
 ## get similar flights
-#filter = np.where((flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['CRS_DEP_TIME'] == t) & (flight_schedule['ORIGIN_CITY_MARKET_ID'] == city_origin) & (flight_schedule['DEST_CITY_MARKET_ID'] == city_dest))
-#similar_flights = flight_schedule.loc[filter]
-
-
+similar_flights = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN_CITY_MARKET_ID'] == city_origin) & (flight_schedule['DEST_CITY_MARKET_ID'] == city_dest)][["OP_CARRIER_AIRLINE_ID","ORIGIN","DEST","CRS_DEP_TIME","CRS_ARR_TIME"]]
+if similar_flights.empty:
+    similar_flights = "No other flight options"
 ###########################
 st.write("Your flight is usually delayed by " + delay_reason + ".")
 st.write("Your flight is delayed " + delay + " minutes on average.")
 
 st.write("Other Flight Options:")
-st.write("PLACEHOLDER FOR OPTIONS LOGIC")
+st.write(similar_flights)
 # avg delay
-# other options
