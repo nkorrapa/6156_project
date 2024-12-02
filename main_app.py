@@ -3,6 +3,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import time
+
 import datetime
 from functions.knn import preprocess_data, train_models
 from functions.linreg import add_colon, linreg_preprocess_data, train_linreg
