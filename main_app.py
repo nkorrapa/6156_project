@@ -36,11 +36,20 @@ t = st.time_input("What time is your flight", value = today)
 origin = st.selectbox("Origin Airport", airport_list, index = None, placeholder = "Select Origin airport")
 destination = st.selectbox("Destination Airport", airport_list, index = None, placeholder= "Select Destination Airport")
 airline = st.selectbox("Airline", airline_list,index = 0, placeholder= "Select Airline")
+
 day_of_week = d.strftime('%A')
 airline_id = airlines[airlines['Description'] == airline]['OP_CARRIER_AIRLINE_ID'].item()
-#############################
 
-## All the Logic and stuff
+input_array = np.array([day_of_week, t, origin, destination, airline_id]) # model input
+
+#############################
+#city_origin = airport_cities[airport_cities['AIRPORT'] == origin]['CITY_MARKET'].item()
+#city_dest = airport_cities[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
+
+## get similar flights
+#filter = np.where((flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['CRS_DEP_TIME'] == t) & (flight_schedule['ORIGIN_CITY_MARKET_ID'] == city_origin) & (flight_schedule['DEST_CITY_MARKET_ID'] == city_dest))
+#similar_flights = flight_schedule.loc[filter]
+
 
 ###########################
 st.write("Your flight is usually delayed by " + delay_reason + ".")
