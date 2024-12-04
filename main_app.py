@@ -30,25 +30,39 @@ airport_cities = load_file('data/airport_cities.csv')
 airport_list = airport_cities[["AIRPORT"]].sort_values("AIRPORT")
 airlines = load_file('data/airline_list.csv')
 airline_list = airlines[['Description']].sort_values("Description")
-today = datetime.datetime.now()
-now = datetime.datetime.now()
+
 ############################################
 st.write("Enter Flight Information")
-d = st.date_input("When is your flight", value = now)
-t = st.time_input("What time is your flight", value = today)
-origin = st.selectbox("Origin Airport", airport_list, index = None, placeholder = "Select Origin airport")
-destination = st.selectbox("Destination Airport", airport_list, index = None, placeholder= "Select Destination Airport")
-airline = st.selectbox("Airline", airline_list,index = 0, placeholder= "Select Airline")
 
+d = st.date_input("When is your flight", value = None)
+if not d: 
+   st.stop()
 day_of_week = d.strftime('%A')
+
+origin = st.selectbox("Origin Airport", airport_list, index = None, placeholder = "Select Origin airport")
+if not origin:
+   st.stop()
+   
+destination = st.selectbox("Destination Airport", airport_list, index = None, placeholder= "Select Destination Airport")
+if not destination:
+   st.stop()
+flight_start = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN'] == origin) & (flight_schedule['DEST'] == destination)][["CRS_DEP_TIME"]].sort_values("CRS_DEP_TIME")
+
+t = st.selectbox("What time is your flight", flight_start, index = None, placeholder = "Select departure time")
+if not t:
+   st.stop()
+
+airline = st.selectbox("Airline", airline_list, index=None, placeholder= "Select Airline")
+if not airline:
+  st.stop()
+
+city_origin = airport_cities.loc[airport_cities['AIRPORT'] == origin, 'CITY_MARKET'].item()
+city_dest = airport_cities.loc[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
 airline_id = airlines[airlines['Description'] == airline]['OP_CARRIER_AIRLINE_ID'].item()
-time = t.strftime('%H%M')
+
 input_array = np.array([day_of_week, t, origin, destination, airline_id]) # model input
 
 #############################
-#city_origin = airport_cities[airport_cities['AIRPORT'] == origin]['CITY_MARKET'].item()
-city_origin = airport_cities.loc[airport_cities['AIRPORT'] == origin, 'CITY_MARKET'].item()
-city_dest = airport_cities.loc[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
 
 ## get similar flights
 flight_schedule = flight_schedule.merge(airlines, on = "OP_CARRIER_AIRLINE_ID", how = 'left')
