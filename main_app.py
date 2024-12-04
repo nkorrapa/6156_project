@@ -87,19 +87,17 @@ else:
     similar_flights.rename(columns = { "Description" : "Airline", "ORIGIN" : "Origin", "DEST" : "Destination", "CRS_DEP_TIME": "Departure Time", "CRS_ARR_TIME": "Arrival Time"}, inplace = True)
 
 ##### get NN model output
-scaler = StandardScaler()
 
 user_input = nn_model_input.to_numpy()
-user_scaled = scaler.transform(user_input)
 model = keras.models.load_model('nn_model.keras')
-delay = model(user_scaled)
+delay = model.predict(user_input)
 
 ###########################
-
+st.write(user_input)
 st.write("Your flight is usually delayed by " + delay_reason + ".")
 if delay[0][1]>= 0.5:
   st.write("Your flight is delayed " + delay + " minutes on average.")
   st.write("Other Flight Options:")
   st.write(similar_flights)
 else:
-   st.write("Your flight is usually on time.")
+  st.write("Your flight is usually on time.")
