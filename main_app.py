@@ -5,10 +5,9 @@ import pandas as pd
 import time
 import datetime
 
-from functions.knn import preprocess_data, train_models
-
-from sklearn.preprocessing import StandardScaler
 import keras
+from joblib import Parallel, delayed 
+import joblib
 #####################################
 @st.cache_data()
 def load_file(file):
@@ -27,6 +26,7 @@ def add_colon (string):
 # input box
 delay = "MODEL OUTPUT"
 delay_reason = "KNN model output"
+delay_dict = {0:"the carrier", 1: 'a late aircraft', 2: 'the National Aviation System', 3: "No Delay", 4: 'security reasons', 5: 'weather' }
 flight_schedule = load_file('data/flight_schedule.csv')
 airport_cities = load_file('data/airport_cities.csv')
 airport_list = airport_cities[["AIRPORT"]].sort_values("AIRPORT")
@@ -68,6 +68,8 @@ input_array = np.array([day_of_week, t, origin, destination, airline_id]) # mode
 
 nn_model_input = flight_info[(flight_info['DAY_OF_WEEK'] == day_of_week) & (flight_info['ORIGIN'] == origin) & (flight_info['DEST'] == destination) & (flight_info['CRS_DEP_TIME'] == t)][["AIR_TIME","DISTANCE","CRS_ELAPSED_TIME"]]
 
+knn_model_input = flight_info[(flight_info['DAY_OF_WEEK'] == day_of_week) & (flight_info['ORIGIN'] == origin) & (flight_info['DEST'] == destination) & (flight_info['CRS_DEP_TIME'] == t)][['DEP_DELAY', 'ARR_DELAY', 'TAXI_OUT', 'TAXI_IN']]
+
 #############################
 
 ## get similar flights
@@ -92,11 +94,17 @@ user_input = nn_model_input.to_numpy()
 model = keras.models.load_model('nn_model.keras')
 delay = model.predict(user_input)
 
+knn_user_input = knn_model_input.to_numpy()
+knn_model = joblib.load('knn_model.pkl')
+delay_reason = knn_model.predict(knn_user_input)
+delay_reason = round(np.average(delay_reason))
 ###########################
-st.write(user_input)
-st.write("Your flight is usually delayed by " + delay_reason + ".")
 if delay[0][1]>= 0.5:
-  st.write("Your flight is delayed " + delay + " minutes on average.")
+  delay_length = round(delay[0][0])
+  reason = delay_dict.get(delay_reason)
+  if delay_reason != 3:
+    st.write("Your flight is usually delayed by " + reason + ".")
+  st.write("Your flight is delayed " + str(delay_length) + " minutes on average.")
   st.write("Other Flight Options:")
   st.write(similar_flights)
 else:
