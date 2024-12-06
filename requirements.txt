@@ -1,4 +1,4 @@
-ltair==5.4.1
+altair==5.4.1
 appnope==0.1.4
 asttokens==2.4.1
 attrs==24.2.0
