@@ -15,7 +15,7 @@ def page_config():
     APP_TITLE = ':green[Soarroute Inc] Flight Delay Predictions'
     APP_SUB_TITLE = 'Authors: Neha Korrapati, Leela Josna Kona, Sammie Srabani, Devangi Samal'
 
-    st.set_option('deprecation.showPyplotGlobalUse', False)
+    #st.set_option('deprecation.showPyplotGlobalUse', False)
     st.set_page_config(page_title=APP_TITLE, page_icon=":airplane_departure", layout="wide")
     st.title(f":satellite: {APP_TITLE} :airplane_departure:")
     st.caption(APP_SUB_TITLE)
