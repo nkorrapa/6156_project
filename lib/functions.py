@@ -4,9 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report, accuracy_score, log_loss
-from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
 import altair as alt
 import plotly.express as px
@@ -94,16 +92,7 @@ def train_models(X, y):
     knn_model.fit(X_train, y_train)
     knn_pred = knn_model.predict(X_test)
     knn_acc = accuracy_score(y_test, knn_pred)
-    
-    # Random Forest
-    rf_model = RandomForestClassifier(n_estimators=100, random_state=42, oob_score=True)
-    rf_model.fit(X_train, y_train)
-    rf_pred = rf_model.predict(X_test)
-    rf_acc = accuracy_score(y_test, rf_pred)
-    
-
-   
-    return dt_model, knn_model, rf_model, dt_acc, knn_acc, rf_acc, X_test, y_test, dt_pred, knn_pred, rf_pred
+    return dt_model, knn_model, dt_acc, knn_acc, y_test, dt_pred, knn_pred
 
 def plot_results(df):
     base = alt.Chart(df).encode(
@@ -123,26 +112,3 @@ def plot_results(df):
     st.altair_chart(pie, use_container_width=True, theme="streamlit")
 
 
-
-
-
-
-# RF LOG LOSS
-
-def plot_log_loss(model, X_test, y_test):
-    y_prob = model.predict_proba(X_test)
-    sample_sizes = np.linspace(100, len(y_test), 10, dtype=int)
-    log_losses = [log_loss(y_test[:size], y_prob[:size]) for size in sample_sizes]
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(sample_sizes, log_losses, marker='o', color='blue')
-    plt.title('Log Loss vs Sample Size')
-    plt.xlabel('Sample Size')
-    plt.ylabel('Log Loss')
-    plt.grid()
-    return plt
-
-
-def calculate_log_loss(model, X_test, y_test):
-    y_prob = model.predict_proba(X_test)
-    return log_loss(y_test, y_prob)

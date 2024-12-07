@@ -1,4 +1,4 @@
-from lib.functions import load_data, page_config, preprocess_data, train_models, plot_results, calculate_log_loss,plot_log_loss 
+from lib.functions import load_data, page_config, preprocess_data, train_models, plot_results
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -9,6 +9,8 @@ import streamlit as st
 import altair as alt, os
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
+
+
 
 # Streamlit app
 def main():
@@ -32,10 +34,10 @@ def main():
     data = load_data()
     X, y, le = preprocess_data(data)
 
-    dt_model, knn_model, rf_model, dt_acc, knn_acc, rf_acc, X_test, y_test, dt_pred, knn_pred, rf_pred = train_models(X, y)
+    dt_model, knn_model, dt_acc, knn_acc, y_test, dt_pred, knn_pred = train_models(X, y)
+    
 
-
-    tab1, tab2, tab3, tab4 = st.tabs(["Decision Tree Classification", "KNN Classification", "Delay Reasons Chart", "Random Forest"])
+    tab1, tab2, tab3 = st.tabs(["Decision Tree Classification", "KNN Classification", "Delay Reasons Chart"])
 
     with tab1:
         st.subheader("Decision Tree Classification Report:")
@@ -63,20 +65,6 @@ def main():
 
         with col2:
             plot_results(delay_reason_counts)
-            
-    with tab4:
-        st.subheader("Random Forest Classification Report:")
-        st.write(f"Random Forest Accuracy: {rf_acc:.2f}")
-        st.dataframe(pd.DataFrame(classification_report(y_test, rf_pred, target_names=le.classes_, output_dict=True)).transpose())
-
-        loss = calculate_log_loss(rf_model, X_test, y_test)
-        st.write(f"Log Loss: {loss:.4f}")
-
-        st.write("Log Loss Visualization:")
-        plt = plot_log_loss(rf_model, X_test, y_test)
-        st.pyplot(plt)
-
-
 
 
 
