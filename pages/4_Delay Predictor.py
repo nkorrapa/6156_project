@@ -53,9 +53,7 @@ def main():
     delay_dict = {0:"the carrier", 1: 'a late aircraft', 2: 'the National Aviation System', 3: "No Delay", 4: 'security reasons', 5: 'weather' }
     flight_schedule = load_file('data/flight_schedule.csv')
     airport_cities = load_file('data/airport_cities.csv')
-    airport_list = airport_cities[["AIRPORT"]].sort_values("AIRPORT")
     airlines = load_file('data/airline_list.csv')
-    airline_list = airlines[['Description']].sort_values("Description")
     flight_info = load_file('data/flight_info.csv')
     ############################################
     st.subheader("Enter Flight Information")
@@ -74,19 +72,29 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-      origin = st.selectbox("Origin Airport", airport_list, index = None, placeholder = "Select Origin airport")
+      origin_list = flight_schedule.loc[flight_schedule['day_of_week'] == day_of_week, 'ORIGIN'].unique()
+      origin_list.sort()
+      origin = st.selectbox("Origin Airport", origin_list, index = None, placeholder = "Select Origin airport")
       if not origin:
         st.stop()
     
     with col2:
-      destination = st.selectbox("Destination Airport", airport_list, index = None, placeholder= "Select Destination Airport")
+      dest_list = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN'] == origin)][["DEST"]]
+      dest_list.drop_duplicates(inplace=True)
+      dest_list.sort_values('DEST', inplace=True)
+      destination = st.selectbox("Destination Airport", dest_list, index = None, placeholder= "Select Destination Airport")
       if not destination:
         st.stop()
 
     col1, col2 = st.columns(2)
     
     with col1:
-      airline = st.selectbox("Airline", airline_list, index=None, placeholder= "Select Airline")
+      airlines_list = flight_schedule[(flight_schedule['day_of_week'] == day_of_week) & (flight_schedule['ORIGIN'] == origin) & (flight_schedule['DEST'] == destination)][['OP_CARRIER_AIRLINE_ID']]
+      temp_list = airlines_list.merge(airlines,how = 'left', on = 'OP_CARRIER_AIRLINE_ID')
+      air_list = temp_list['Description']
+      air_list=air_list.drop_duplicates()
+      air_list.sort_values(inplace=True)
+      airline = st.selectbox("Airline", air_list, index=None, placeholder= "Select Airline")
       if not airline:
         st.stop()
     airline_id = airlines[airlines['Description'] == airline]['OP_CARRIER_AIRLINE_ID'].item()
@@ -101,8 +109,6 @@ def main():
 
     city_origin = airport_cities.loc[airport_cities['AIRPORT'] == origin, 'CITY_MARKET'].item()
     city_dest = airport_cities.loc[airport_cities['AIRPORT'] == destination]['CITY_MARKET'].item()
-
-    input_array = np.array([day_of_week, t, origin, destination, airline_id]) # model input
 
     nn_model_input = flight_info[(flight_info['DAY_OF_WEEK'] == day_of_week) & (flight_info['ORIGIN'] == origin) & (flight_info['DEST'] == destination) & (flight_info['CRS_DEP_TIME'] == t)][["AIR_TIME","DISTANCE","CRS_ELAPSED_TIME"]]
 
