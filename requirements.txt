@@ -45,6 +45,7 @@ patsy==1.0.1
 pexpect==4.9.0
 pillow==10.4.0
 platformdirs==4.3.6
+plotly==5.24.1
 prompt_toolkit==3.0.48
 protobuf==5.28.3
 psutil==6.1.0
