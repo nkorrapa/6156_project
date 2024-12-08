@@ -27,7 +27,17 @@ Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 * [Plotly](https://plotly.com/): (`streamlit.plotly_chart`)
 * Keras and TensorFlow
 
-## Reports
+## Snapshots
+### 1. Landing Page
+![Home](https://github.com/nkorrapa/6156_project/blob/main/data/img/home_page.jpg)
+
+### 2. Exploratory Data Analysis
+  ### Correlation Heatmap
+  ![CH](https://github.com/nkorrapa/6156_project/blob/main/data/img/correlation_heatmap.jpg)
+  ### Top 10 US Airports Avg Arrival Delay
+  ![Top10](https://github.com/nkorrapa/6156_project/blob/main/data/img/top10_us_airports_avg_arr_delay.jpg)
+### 3. Flight Delay Predictions
+### 4. Delay Predictor
 
 ## Future work
 * Predict avg duration of delay – Regression
