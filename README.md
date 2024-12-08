@@ -32,15 +32,15 @@ Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 ![Home](https://github.com/nkorrapa/6156_project/blob/main/data/img/home_page.jpg)
 
 ### 2. Exploratory Data Analysis
-  ### Correlation Heatmap
-  ![CH](https://github.com/nkorrapa/6156_project/blob/main/data/img/correlation_heatmap.jpg)
-  ### Top 10 US Airports Avg Arrival Delay
-  ![Top10](https://github.com/nkorrapa/6156_project/blob/main/data/img/top10_us_airports_avg_arr_delay.jpg)
+![CH](https://github.com/nkorrapa/6156_project/blob/main/data/img/correlation_heatmap.jpg)
+![Top10](https://github.com/nkorrapa/6156_project/blob/main/data/img/top10_us_airports_avg_arr_delay.jpg)
+
 ### 3. Flight Delay Predictions
 ![DT](https://github.com/nkorrapa/6156_project/blob/main/data/img/decision_tree_report.jpg)
 ![KNN](https://github.com/nkorrapa/6156_project/blob/main/data/img/knn_report.jpg)
 ![pie](https://github.com/nkorrapa/6156_project/blob/main/data/img/delay_reasons_chart.jpg)
 ![bar](https://github.com/nkorrapa/6156_project/blob/main/data/img/log_loss_comparision_chart.jpg)
+
 ### 4. Delay Predictor
 ![bar](https://github.com/nkorrapa/6156_project/blob/main/data/img/delay_predictor.jpg)
 
