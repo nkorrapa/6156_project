@@ -67,3 +67,12 @@ div.stHeadingContainer [data-testid="StyledLinkIconContainer"] {
     padding-bottom: 15px;
 }
 
+.st-emotion-cache-12fmjuu {
+    height: 1rem;
+}
+h1{
+    color: teal;
+}
+h3 {
+    color: teal;
+}
