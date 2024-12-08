@@ -8,15 +8,16 @@ Data from the Bureau of Transportation Statistics (bts.gov) collected during 01 
 
 
 ## Results:
-* result1
-* result2
+* Decision Tree and KNN models built, trained to predict flight delays
+* Neural Network to predict the Flight delay
 
 ## Authors
 Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 
 ## Objectives
-* Prediction 1
-* Prediction 2
+* Identify potential delay flights
+
+* Building a strategies to predict most common reason for delay 
 
 ## Dataset and model
 * Bureau of Transportation Statistics (bts.gov)
@@ -24,7 +25,10 @@ Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 ## Libraries Used
 * [Streamlit](https://www.streamlit.io)
 * [Plotly](https://plotly.com/): (`streamlit.plotly_chart`)
+* Keras and TensorFlow
 
 ## Reports
 
 ## Future work
+* Predict avg duration of delay – Regression
+* Suggest alternative flights
