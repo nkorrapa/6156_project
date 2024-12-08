@@ -1,7 +1,9 @@
 # Soarroute Flight Delay Predictions
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://soarroute-flightdelay-predictions.streamlit.app/)
 
-An Interactive Streamlit App Dashboard to analyze and predict the expected Flight Delays based on weather, airlines and flight origin-destination [Streamlit](https://www.streamlit.io) module. You can try [here](https://soarroute-flightdelay-predictions.streamlit.app/).  
+An Interactive Streamlit App Dashboard to analyze and predict the expected Flight Delays based on weather, airlines and flight origin-destination [Streamlit](https://www.streamlit.io) module to improve the travel experience![image](https://github.com/user-attachments/assets/80018791-68e3-48e4-a464-13a0ff45f4e1)
+. You can try [here](https://soarroute-flightdelay-predictions.streamlit.app/).  
+These models help stakeholders make data-driven decisions, like optimizing schedules or managing airport resources.
 
 Data from the Bureau of Transportation Statistics (bts.gov) collected during Jan 2020 to Dec 2022, were analyzed to assess Flight Delay Predictions
 
