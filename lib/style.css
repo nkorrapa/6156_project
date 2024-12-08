@@ -1,0 +1,69 @@
+kramdown:
+  input: Kramdown
+
+div.st-emotion-cache-j7qwjs {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* color: #eb9234; */
+}
+
+div.st-emotion-cache-183lzff {
+    font-size: 14px;
+    float: left;
+    font-family: "Source Sans Pro", sans-serif;
+
+}
+
+div.st-emotion-cache-1q7spjk {
+    font-size: 16px;
+    float: right;
+    font-family: cursive;  
+}
+
+div.st-emotion-cache-17lntkn{
+    color:#eb9234;
+}
+
+
+div.stTabs [data-baseweb="tab-list"] {
+    gap: 2px;
+}
+
+div.stTabs [data-baseweb="tab"] {
+    height: 50px; width: 200px;
+    white-space: pre-wrap;
+    background-color: #3ba1c5;
+    border-radius: 4px 4px 0px 0px;
+    gap: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:#FFFFFF;
+}
+
+div.stTabs [aria-selected="true"] {
+    background-color: lightgrey;
+    color:#808080;
+}
+
+div.st-emotion-cache-ue6h4q {
+    font-size:large;
+}
+div.st-emotion-cache-1n5xqho h2 {
+    color: teal;
+}
+
+div.stHeadingContainer {
+    color: teal;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+div.stMarkdown [data-testid="stMarkdownContainer"] { 
+    color: teal;
+}
+
+div.stHeadingContainer [data-testid="StyledLinkIconContainer"] { 
+    color: teal; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
