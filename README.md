@@ -47,4 +47,5 @@ Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 
 ## Future work
 * Predict avg duration of delay – Regression
+* Use more historical data
 * Suggest alternative flights
