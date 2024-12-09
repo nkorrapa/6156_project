@@ -42,7 +42,8 @@ Sammie Srabani, Neha Korrapati, Leela Josna Kona, Devangi Samal
 ![bar](https://github.com/nkorrapa/6156_project/blob/main/data/img/log_loss_comparision_chart.jpg)
 
 ### 4. Delay Predictor
-![bar](https://github.com/nkorrapa/6156_project/blob/main/data/img/delay_predictor.jpg)
+![demo](https://github.com/nkorrapa/6156_project/blob/main/data/img/delay_predictor.jpg)
+![demo](https://github.com/nkorrapa/6156_project/blob/main/data/img/delay_predictor_demo.jpg)
 
 
 ## Future work
